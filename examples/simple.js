@@ -1,5 +1,5 @@
 // if you don't specify a html file, the sniper will generate a div
-var rna = require("rnavis");
+var rna = require("drawrnajs");
 var app = rna.vis;
 
 //var instance = new app({el: yourDiv, text: 'biojs'});

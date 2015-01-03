@@ -1,4 +1,4 @@
-var rna = require("rnavis");
+var rna = require("drawrnajs");
 var app = rna.vis;
 
 var input = ["AAAAA", "(...)"];

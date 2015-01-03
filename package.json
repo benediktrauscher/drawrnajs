@@ -1,32 +1,32 @@
 {
-  "name": "rnavis",
+  "name": "drawrnajs",
   "description": "Visualizes RNA secondary structures.",
   "version": "0.1.0",
-  "homepage": "https://github.com/bene200/rnavis",
+  "homepage": "https://github.com/bene200/drawrnajs",
   "author": {
     "name": "bene200",
     "email": "berau90@web.de"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/bene200/rnavis.git"
+    "url": "git://github.com/bene200/drawrnajs.git"
   },
   "bugs": {
-    "url": "https://github.com/bene200/rnavis/issues"
+    "url": "https://github.com/bene200/drawrnajs/issues"
   },
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/bene200/rnavis/blob/master/LICENSE"
+      "url": "https://github.com/bene200/drawrnajs/blob/master/LICENSE"
     }
   ],
   "main": "src/index.js",
   "scripts": {
     "test": "echo 'Error: no test specified' && exit 1",
-    "build": "mkdirp build && browserify -r ./:rnavis -o build/rnavis.js",
+    "build": "mkdirp build && browserify -r ./:drawrnajs -o build/drawrnajs.js",
     "build-browser": "npm run build",
     "prepublish": "npm run build",
-    "watch": "watchify -r ./:rnavis -v -o build/rnavis.js",
+    "watch": "watchify -r ./:drawrnajs -v -o build/drawrnajs.js",
     "sniper": "biojs-sniper ."
   },
   "dependencies": {
@@ -41,7 +41,7 @@
   },
   "sniper": {
     "js": [
-      "/build/rnavis.js" ],
+      "/build/drawrnajs.js" ],
     "css": [
       "/style/style.css", "/style/spectrum.css"
     ],
