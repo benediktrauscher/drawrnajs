@@ -1,0 +1,30 @@
+<div class="content">
+		<div class="header">
+			<h1>RNA secondary structure visualization</h1>
+		</div>
+		<div class="main">
+					<div class="container">
+						<h2>Options</h1>
+						
+						<p>Enter RNA-Sequence here:</p>
+				    	<input class="textbox" id="SEQ_BOX">
+				    	<p>Enter Dot-Bracket Annotation here:</p>
+				  		<input class="textbox" id="DOTBR_BOX">			
+				  		<ul> 
+					  		<li> A  <input type="text" id="acolor"> </li>
+					  		<li> C  <input type="text" id="ccolor"> </li>
+					  		<li> G  <input type="text" id="gcolor"> </li>
+					  		<li> U  <input type="text" id="ucolor"> </li>
+				  		</ul>
+				  		<p>To add a hydrogen bond, first press "N". Then click on the nucleotides from which to which you want to create the bond. </p>
+				  		<p>The Dot-Bracket Notation will be changed to fit the new structure automatically.</p>
+				  		
+				    	<input class="button" id="PERFORM_VIS" name="Perform Vis" value="Show structure">
+				  	</div>
+
+				<div class="drawfield">
+					<div id="cy"></div>
+				</div>
+			</div>
+		</div>
+	</div>

@@ -1,0 +1,82 @@
+layout: {
+    		name: 'cose',
+			ready: function() {},
+			stop: function() {},
+			animate: true,
+			refresh: 4,
+			fit: true, 
+			padding: 30,
+			boundingBox: undefined,
+			randomize: true,
+			debug: false,
+			nodeRepulsion: 30000000,
+			nodeOverlap: 6,
+			idealEdgeLength: 1,
+			edgeElasticity: 1,
+			nestingFactor: 1, 
+			gravity: 0, 
+			numIter: 200,
+			initialTemp: 300,
+			coolingFactor: 0.95, 
+			minTemp: 1.0
+  		}
+
+layout: {
+	  name: 'springy',
+  animate: true, // whether to show the layout as it's running
+  maxSimulationTime: 4000, // max length in ms to run the layout
+  ungrabifyWhileSimulating: false, // so you can't drag nodes during layout
+  fit: true, // whether to fit the viewport to the graph
+  padding: 30, // padding on fit
+  boundingBox: undefined, // constrain layout bounds; { x1, y1, x2, y2 } or { x1, y1, w, h }
+  random: false, // whether to use random initial positions
+  infinite: false, // overrides all other options for a forces-all-the-time mode
+  ready: undefined, // callback on layoutready
+  stop: undefined, // callback on layoutstop
+
+  // springy forces
+  stiffness: 400,
+  repulsion: 400,
+  damping: 0.5
+};
+
+var options = {
+  name: 'arbor',
+
+  animate: true, // whether to show the layout as it's running
+  maxSimulationTime: 4000, // max length in ms to run the layout
+  fit: true, // on every layout reposition of nodes, fit the viewport
+  padding: 30, // padding around the simulation
+  boundingBox: undefined, // constrain layout bounds; { x1, y1, x2, y2 } or { x1, y1, w, h }
+  ungrabifyWhileSimulating: false, // so you can't drag nodes during layout
+
+  // callbacks on layout events
+  ready: undefined, // callback on layoutready 
+  stop: undefined, // callback on layoutstop
+
+  // forces used by arbor (use arbor default on undefined)
+  repulsion: undefined,
+  stiffness: undefined,
+  friction: undefined,
+  gravity: true,
+  fps: undefined,
+  precision: undefined,
+
+  // static numbers or functions that dynamically return what these
+  // values should be for each element
+  // e.g. nodeMass: function(n){ return n.data('weight') }
+  nodeMass: undefined, 
+  edgeLength: undefined,
+
+  stepSize: 0.1, // smoothing of arbor bounding box
+
+  // function that returns true if the system is stable to indicate
+  // that the layout can be stopped
+  stableEnergy: function( energy ){
+    var e = energy; 
+    return (e.max <= 0.5) || (e.mean <= 0.3);
+  },
+
+  // infinite layout options
+  infinite: false // overrides all other options for a forces-all-the-time mode
+};
