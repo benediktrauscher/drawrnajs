@@ -9,6 +9,16 @@
 	width: 30%;
 }
 
+.alertfield{
+	background-color: #F6F6F6;
+	font-family:'Helvetica Neue',sans-serif;
+	color: #ff4c4c;
+	padding: 1px 10px;
+	border: 0;
+	height: 25px;
+	width: 90%;
+}
+
 .content {
 	border: 2px solid;
 	border-radius: 15px;
@@ -75,6 +85,7 @@
 	border:1px solid #1A87B9;
 	cursor: pointer;
 	width: 80%;
+	margin-bottom: 5px;
 }
 
 p {

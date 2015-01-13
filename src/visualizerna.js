@@ -50,29 +50,38 @@ module.exports = visCytoscapeJs = function(opts) {
  				pan: { x: 100, y: 100 }
 			});
 			cy.fit();
-			
-			
-			opts.el.childNodes[0]
-				.childNodes[4].style.position = "relative";
-      		opts.el.childNodes[0]
-      			.style.position = "relative";
+			opts.el.childNodes[0].childNodes[4].style.position = "relative";
+      		opts.el.childNodes[0].style.position = "relative";
       		opts.el.style.position = "absolute";
-      		
-      		//opts.el.style.width = "100%";
       		opts.el.style.height = "700px";
-      		
+
+      		var centerButton = opts.doc.getElementById('CENTER');
+  			centerButton.readOnly = true;
+  			centerButton.addEventListener('click', function(){ 
+  				cy.center();
+  				cy.fit();
+  			}, false);
+
+  			var exportButton = opts.doc.getElementById('EXPORT');
+  			exportButton.readOnly = true;
+  			exportButton.addEventListener('click', function(){
+    			var png64 = cy.png();
+    			var newTab = window.open();
+    			newTab.document.write('<img src="'+png64+'"/>');
+    			newTab.focus();
+  			}, false);
       	}
 	})
 	
 	//Display nucleotide index on mouseover
-	cy.on('mouseover', 'node', function(event){
+	/*cy.on('mouseover', 'node', function(event){
 		var nd = event.cyTarget;
 		Tip(parseInt(nd.id(), 10)+1);
 	})
 	cy.on('mouseout', 'node', function(event){
 		var nd = event.cyTarget;
 		UnTip();
-	})
+	})*/
 
 	// Add events for adding hbonds
 	$( document ).keydown(function(key) {
@@ -90,21 +99,17 @@ module.exports = visCytoscapeJs = function(opts) {
 		else if (drawEdge && !($.isEmptyObject(srcNode))) {
 			targetNode = event.cyTarget;
 			console.log("new target node specified");
-			var inputStr = t.graphToStrings(graph);
-			console.log(inputStr.dotbr);
-			console.log(t.getPartner(srcNode.id(), graph.links));
-			graph.links.push({source: parseInt(srcNode.id(), 10), 
+			var inputStr = t.graphToStrings(opts.graph);
+			opts.graph.links.push({source: parseInt(srcNode.id(), 10), 
 				target: parseInt(targetNode.id(), 10), 
 				type: "hbond"});
-			console.log(srcNode.id() + " " + t.getPartner(srcNode.id(), graph.links));
 			drawEdge = false;
 			srcNode = {};
 			targetNode = {};
 
-			inputStr = t.graphToStrings(graph);
-			console.log(inputStr.dotbr);
-			document.getElementById('DOTBR_BOX').value = inputStr.dotbr;
-			visCytoscapeJs(t.transformDotBracket(inputStr.seq, inputStr.dotbr));
+			inputStr = t.graphToStrings(opts.graph);
+			opts.doc.getElementById('DOTBR_BOX').value = inputStr.dotbr;
+			visCytoscapeJs({graph: t.transformDotBracket(inputStr.seq, inputStr.dotbr), el: opts.el, win: opts.win, doc: opts.doc});
 
 		} else {
 			console.log("Edge drawing deactivated, press N to activate");

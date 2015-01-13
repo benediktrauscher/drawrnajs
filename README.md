@@ -1,32 +1,18 @@
 # rnavis
 
-[![NPM version](http://img.shields.io/npm/v/rnavis.svg)](https://www.npmjs.org/package/rnavis) 
+[![NPM version](http://img.shields.io/npm/v/drawrnajs.svg)](https://www.npmjs.org/package/drawrnajs) 
 
 > Visualizes RNA secondary structures.
 
 ## Getting Started
-Install the module with: `npm install rnavis`
+Install the module with: `npm install drawrnajs`
 
 ```javascript
-var rnavis = require('rnavis');
-rnavis.hello("biojs"); // "hello biojs"
+var drawrnajs = require('drawrnajs');
 ```
 
 ## Documentation
 
-#### .hello(name)
-
-**Parameter**: `name`
-**Type**: `String`
-**Example**: `biojs`
-
-The 'hello' method is responsible for showing a name.
-
-How to use this method
-
-```javascript
-rnavis.hello('biojs'); // "hello biojs"
-```
 
 ## Contributing
 
@@ -34,7 +20,7 @@ All contributions are welcome.
 
 ## Support
 
-If you have any problem or suggestion please open an issue [here](https://github.com/bene200/rnavis/issues).
+If you have any problem or suggestion please open an issue [here](https://github.com/bene200/drawrnajs/issues).
 
 ## License 
 

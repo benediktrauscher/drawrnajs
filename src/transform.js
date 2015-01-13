@@ -11,6 +11,7 @@ t.transformDotBracket = function(seq, dotbr){
 	var links = new Array();
 
 	var src;
+	var type;
 
 	//Indices corresponding to opening brackets are pushed onto a stack
 	//and are popped when a closing bracket is read.
@@ -35,31 +36,23 @@ t.transformDotBracket = function(seq, dotbr){
 				break;
 			case ")":
 				src = round.pop();
-				links.push({source: src, target: i, type: "hbond"});
-				if(nodes[src].name==="G" || nodes[src].name==="C"){
-					links.push({source: i, target: src, type: "hbond"});
-				}
+				type = t.getType(t.isWatsonCrick(seq[src], seq[i]));
+				links.push({source: src, target: i, type: type});
 				break;
 			case "}":
 				src = curly.pop();
-				links.push({source: src, target: i, type: "hbond"});
-				if(nodes[src].name==="G" || nodes[src].name==="C"){
-					links.push({source: i, target: src, type: "hbond"});
-				}
+				type = t.getType(t.isWatsonCrick(seq[src], seq[i]));
+				links.push({source: src, target: i, type: type});
 				break;
 			case "]":
 				src = square.pop();
-				links.push({source: src, target: i, type: "hbond"});
-				if(nodes[src].name==="G" || nodes[src].name==="C"){
-					links.push({source: i, target: src, type: "hbond"});
-				}
+				type = t.getType(t.isWatsonCrick(seq[src], seq[i]));
+				links.push({source: src, target: i, type: type});
 				break;
 			case ">":
 				src = pointy.pop();
-				links.push({source: src, target: i, type: "hbond"});
-				if(nodes[src].name==="G" || nodes[src].name==="C"){
-					links.push({source: i, target: src, type: "hbond"});
-				}
+				type = t.getType(t.isWatsonCrick(seq[src], seq[i]));
+				links.push({source: src, target: i, type: type});
 				break;
 			case ".":
 				break;
@@ -129,7 +122,7 @@ t.toCytoscapeElements = function(graph){
 t.getColor = function(element){
 	//Get color for a certain nucleotide as specified by the color
 	//picker in the options column of the page.
-	var col = "";
+	var col = "black";
 	if($("#acolor").length  > 0){
 		if (element === "A"){
 			col = $("#acolor").spectrum('get').toHexString();
@@ -142,6 +135,12 @@ t.getColor = function(element){
 		}
 		else if (element === "G"){
 			col = $("#gcolor").spectrum('get').toHexString();
+		}
+		else if (element === "hbond"){
+			col = "#3A9AD9";
+		} 
+		else if(element === "violation") {
+			col = "red";
 		}
 	} else {
 
@@ -157,12 +156,12 @@ t.getColor = function(element){
 		else if (element === "G"){
 			col = "#3C88EE";
 		}
-	}
-	
-	if (element === "hbond"){
-		col = "#3A9AD9";
-	} else if(col === "") {
-		col = "black";
+		else if (element === "hbond"){
+			col = "#3A9AD9";
+		} 
+		else if(element === "violation") {
+			col = "red";
+		}
 	}
 	return col;
 }
@@ -170,7 +169,7 @@ t.getColor = function(element){
 t.getWeight = function(type) {
 	//Get weight for a certain bond type
 	var weight; 
-	if(type==="hbond"){
+	if(type=== "hbond" || type === "violation"){
     	weight = 4;
     } else {
     	weight = 5;
@@ -231,7 +230,7 @@ t.getPartner = function(srcIndex, links){
 	//-1 means there is no partner
 	var partner = -1;
 	for(var i = 0; i < links.length; i++){
-		if(links[i].type === "hbond"){
+		if(links[i].type != "phosphodiester"){
 			if(links[i].source === srcIndex){
 				partner = links[i].target;
 				break;
@@ -323,7 +322,7 @@ t.drawLoop = function(i, j, x, y, dirAngle, coords, centers, angles, seq, links)
 			l = basesMultiLoop[k];
 			centers[l] = mlCenter;
 			var isPaired = (t.getPartner(i, links) != -1);
-			var isPaired3 = isPaired && (getPartner(i) < l);
+			var isPaired3 = isPaired && (t.getPartner(i) < l);
 			var isPaired5 = isPaired && !isPaired3;
 			if (isPaired3) {
 				baseAngle = t.correctHysteresis(baseAngle+angleIncrementBP/2.)-angleIncrementBP/2.;
@@ -450,7 +449,6 @@ t.normalizeAngle  = function(angle,fromVal) {
 t.graphToStrings  = function(graph){
 	//This function is used to update String/Dot-Bracket Notation
 	//after a hbond was inserted
-	console.log(graph.links[100]);
 	var seq = "";
 	var dotbr = [];
 	var partner;
@@ -462,7 +460,6 @@ t.graphToStrings  = function(graph){
 			dotbr[i] = ".";
 		}
 		else if(partner > i){
-			console.log(i);
 			dotbr[i] = "(";
 			dotbr[partner] = ")";
 		} 
@@ -474,16 +471,21 @@ t.graphToStrings  = function(graph){
 	return({seq: seq, dotbr: dotbr.join("")});
 }
 
-/*
-//TEST CODE
-var seq = "CGCUUCAUAUAAUCCUAAUGAUAUGGUUUGGGAGUUUCUACCAAGAGCCUUAAACUCUUGAUUAUGAAGUG";
-var dotbr = "(((((((((...((((((.........))))))........((((((.......))))))..)))))))))";
+t.isWatsonCrick = function(nucOne, nucTwo){
+	var watsonCrick = false;
+	if(nucOne === "G" && nucTwo === "C" ||
+		nucOne === "C" && nucTwo === "G" ||
+		nucOne === "A" && nucTwo === "U" || 
+		nucOne === "U" && nucTwo === "A") {
+		watsonCrick = true;
+	}
+	return watsonCrick;
+}
 
-var struct = transformDotBracket(seq, dotbr);
-debug(graphToStrings(struct).seq);
-debug(graphToStrings(struct).dotbr);
-
-struct.links.push({source: 18, target: 26, type: "hbond"});
-
-debug(graphToStrings(struct).dotbr);
-*/
+t.getType = function(watsonCrick){
+	if(watsonCrick){
+		return "hbond";
+	} else {
+		return "violation";
+	}
+}
