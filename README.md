@@ -1,5 +1,3 @@
-# rnavis
-
 [![NPM version](http://img.shields.io/npm/v/drawrnajs.svg)](https://www.npmjs.org/package/drawrnajs) 
 
 > Visualizes RNA secondary structures.
