@@ -9,6 +9,12 @@
 	width: 30%;
 }
 
+.mainWhite {
+    height: 100%;
+    width: 100%;
+    background-color: #F0F0F5;
+}
+
 .alertfield{
 	background-color: #F6F6F6;
 	font-family:'Helvetica Neue',sans-serif;
@@ -118,7 +124,7 @@ li {
 body {
 	margin:50px 50px; padding:0px;
 	text-align:center;
-	background-color: #F0F0F5;
+	background-color: #F6F6F6;
 	font-family: "Helvetica Neue", "Lucida Grande", Helvetica, Arial, Verdana, sans-serif;
 }
 #cy {

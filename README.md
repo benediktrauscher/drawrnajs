@@ -2,15 +2,40 @@
 
 > Visualizes RNA secondary structures.
 
-## Getting Started
-Install the module with: `npm install drawrnajs`
+## Documentation
+To install the module, use: 'npm install drawrnajs'
+
+To use the module, first include drawrnajs.js in your HTML file.
+Now you can use it in your javascript with
 
 ```javascript
 var drawrnajs = require('drawrnajs');
 ```
 
-## Documentation
+In order to visualize your RNA secondary structure you first have to convert your sequence and corresponding dot-bracket notation to a JSON format which specifies nodes and edges of the structure. 
 
+```javascript
+var structure = rna.t.transformDotBracket(yourSequence, yourDotBracket);
+```
+
+Drawrnajs uses [cytoscape](http://registry.biojs.net/#/detail/cytoscape) to draw the structure. For that reason you need to add a cytoscape element to the div of your choice in your HTML file.
+The cytoscape element should have the following style specifications:
+
+```css
+#cy {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+```
+For more details about cytoscape please refer to the cytoscape documentation.
+
+Now you can visualize your RNA secondary structure inside your cytoscape element like this:
+
+```javascript
+var cy = document.getElementById('cy');
+rna.vis({graph: structure: el: cy});
+```
 
 ## Contributing
 
