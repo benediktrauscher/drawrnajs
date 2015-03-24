@@ -18,7 +18,7 @@ In order to visualize your RNA secondary structure you first have to convert you
 var structure = rna.t.transformDotBracket(yourSequence, yourDotBracket);
 ```
 
-Drawrnajs uses [cytoscape](http://registry.biojs.net/#/detail/cytoscape) to draw the structure. For that reason you need to add a cytoscape element to the div of your choice in your HTML file.
+Drawrnajs uses [cytoscape](http://biojs.io/d/cytoscape) to draw the structure. For that reason you need to add a cytoscape element to the div of your choice in your HTML file.
 The cytoscape element should have the following style specifications:
 
 ```css
