@@ -186,6 +186,7 @@ module.exports = visCytoscapeJs = function(opts) {
         changeCol.readOnly = true;
         changeCol.addEventListener("click", function(){ 
             cy.$(':selected').css("background-color", $("#selcolor").spectrum('get').toHexString());
+            cy.$(':selected').unselect();
         }, false);
     }
       
