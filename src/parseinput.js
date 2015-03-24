@@ -25,7 +25,7 @@ t.checkConditions = function(sequences){
     isFine = false;
     document.getElementById('ALERT').value = "Dot-bracket sequence may only contain \"(\", \")\", or \".\"!";
   }
-  else if(! sequences[0].match('^[ACGUTRYSWKMBDHVN\-]+$')){
+  else if(! sequences[0].match('^[ACGUTRYSWKMBDHVNacgutryswkmbdhvn-]+$')){
     isFine = false;
     document.getElementById('ALERT').value = "Sequence may only contain IUPAC-characters!";
   }

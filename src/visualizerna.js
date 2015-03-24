@@ -15,26 +15,23 @@ module.exports = visCytoscapeJs = function(opts) {
   		container: opts.el,
   
   		style: cytoscape.stylesheet()
-	    		.selector('node')
-	      		.css({
-			        'content': 'data(label)',
-			        'text-valign': 'center',
-			        'color': 'white',
-			        'text-outline-width': 2,
-			        'text-outline-color': '#778899'
-	      		})
-	    		.selector(':selected')
-	      		.css({
-			        'background-color': 'black',
-			        'line-color': 'black',
-			        'target-arrow-color': 'black',
-			        'source-arrow-color': 'black',
-			        'text-outline-color': 'black'
-	      		})
-	      		.selector('edge')
-	      		.css({
-	      			
-	      		}),
+                .selector("node")
+                .css({
+                    "content": "data(label)",
+                    "text-valign": "center",
+                    "color": "white",
+                    "text-outline-width": 2,
+                    "text-outline-color": "#778899"
+                })
+                .selector(":selected")
+                .css({
+                    "background-color": "black",
+                    "opacity": 0.6
+                })
+                .selector("edge")
+                .css({
+                    
+                }),
   
   		elements: cyEle,
   		
@@ -55,23 +52,29 @@ module.exports = visCytoscapeJs = function(opts) {
       		opts.el.style.position = "absolute";
       		opts.el.style.height = "700px";
 
-      		var centerButton = opts.doc.getElementById('CENTER');
-  			centerButton.readOnly = true;
-  			centerButton.addEventListener('click', function(){ 
-  				cy.center();
-  				cy.fit();
-  			}, false);
+            if(document.getElementById("CENTER") !== null){
+          		var centerButton = opts.doc.getElementById('CENTER');
+      			centerButton.readOnly = true;
+      			centerButton.addEventListener('click', function(){ 
+      				cy.center();
+      				cy.fit();
+      			}, false);
+            }
 
-  			var exportButton = opts.doc.getElementById('EXPORT');
-  			exportButton.readOnly = true;
-  			exportButton.addEventListener('click', function(){
-    			var png64 = cy.png();
-    			var newTab = window.open();
-    			newTab.document.write('<img src="'+png64+'"/>');
-    			newTab.focus();
-  			}, false);
-      	}
-	})
+            if(document.getElementById("EXPORT") !== null){
+      			var exportButton = opts.doc.getElementById('EXPORT');
+      			exportButton.readOnly = true;
+      			exportButton.addEventListener('click', function(){
+        			var png64 = cy.png();
+        			var newTab = window.open();
+        			newTab.document.write("<img src=" + png64 + " />");
+        			newTab.focus();
+      			}, false);
+            }
+      	},
+
+        userPanningEnabled: false
+	});
 	
 	//Display nucleotide index on mouseover
 	/*cy.on('mouseover', 'node', function(event){
@@ -114,5 +117,85 @@ module.exports = visCytoscapeJs = function(opts) {
 		} else {
 			console.log("Edge drawing deactivated, press N to activate");
 		}
-	})
+	});
+
+    //Lasso Functionality
+    $.fn.extend({
+      lasso: function () {
+         this.mousedown(function (e) {
+            // left mouse down switches on "capturing mode"
+            if (e.which === 1 && !$(this).is(".lassoRunning")) {
+              $(this).addClass("lassoRunning");
+              $(this).data("lassoPoints", []);
+              $(this).trigger("lassoBegin");
+              //alert("here");
+            }
+          });
+          this.mouseup(function (e) {
+            // left mouse up ends "capturing mode" + triggers "Done" event
+            if (e.which === 1 && $(this).is(".lassoRunning")) {
+              $(this).removeClass("lassoRunning");
+              $(this).trigger("lassoDone", [$(this).data("lassoPoints")]);
+            }
+          });
+          this.mousemove(function (e) {
+            // mouse move captures co-ordinates + triggers "Point" event
+            if ($(this).is(".lassoRunning")) {
+              var px = (e.offsetX || e.clientX - $(e.target).offset().left + window.pageXOffset);
+              var py = (e.offsetY || e.clientY - $(e.target).offset().top + window.pageYOffset);
+              var point = [px, py];
+              $(this).data("lassoPoints").push(point);
+              $(this).trigger("lassoPoint", [point]);
+            }
+          });
+          return this;
+      }
+    });
+
+    var polygon = [];
+    $("#cy")
+    .lasso()
+    .on("lassoBegin", function(e, lassoPoints) {
+        polygon = [];
+        canvas = $('[data-id="layer1"]')[0];
+        c2 = canvas.getContext('2d');
+        c2.fillStyle = "rgba(100, 100, 100, 0.02)";
+        c2.beginPath();
+
+        c2.moveTo(e.pageX, e.pageY);
+    })
+    .bind("lassoPoint", function(e, lassoPoint) {
+        c2.lineTo(lassoPoint[0], lassoPoint[1] );
+        c2.fill();
+        polygon.push({x: lassoPoint[0], y: lassoPoint[1]});
+    })
+    .on("lassoDone", function(e, lassoPoints) {
+        // do something with lassoPoints
+        c2.closePath();
+        c2.clearRect(0,0,canvas.width,canvas.height);
+        var graphNodes = cy.nodes();
+        for(var i=0; i<graphNodes.length; i++){
+            if(isPointInPoly(polygon, cy.$("#" + graphNodes[i].id()).renderedPosition())){
+                cy.$("#" + graphNodes[i].id()).select();
+            }
+        }
+    });
+
+    if(document.getElementById("SELCOL") !== null){
+        var changeCol = document.getElementById("SELCOL");
+        changeCol.readOnly = true;
+        changeCol.addEventListener("click", function(){ 
+            cy.$(':selected').css("background-color", $("#selcolor").spectrum('get').toHexString());
+        }, false);
+    }
+      
+    function isPointInPoly(poly, pt){
+        var i, j, c = 0;
+        for (i = 0, j = poly.length-1; i < poly.length; j = i++) {
+          if ( ((poly[i].y>pt.y) != (poly[j].y>pt.y)) && 
+            (pt.x < (poly[j].x-poly[i].x) * (pt.y-poly[i].y) / (poly[j].y-poly[i].y) + poly[i].x) )
+            c = !c;
+        }
+        return c;
+    }
 }

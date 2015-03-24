@@ -17,7 +17,7 @@ t.transformDotBracket = function(seq, dotbr){
 	//and are popped when a closing bracket is read.
 	//Links (hbonds, phosphodiester bonds) are created as needed.
 	for(var i = 0; i < seq.length; i++){
-		nodes.push({name: seq[i]});
+		nodes.push({name: seq[i].toUpperCase()});
 		if(i > 0){
 			links.push({source: i-1, target: i, type: "phosphodiester"});
 		}
