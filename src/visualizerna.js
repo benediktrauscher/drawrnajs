@@ -5,7 +5,7 @@ var srcNode = {};
 var targetNode = {};
 
 var t = require('./transform.js');
-var cytoscape = require('../node_modules/cytoscape/dist/cytoscape');
+var cytoscape = require('cytoscape');
 
 var visCytoscapeJs;
 module.exports = visCytoscapeJs = function(opts) {
