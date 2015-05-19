@@ -476,7 +476,9 @@ t.isWatsonCrick = function(nucOne, nucTwo){
 	if(nucOne === "G" && nucTwo === "C" ||
 		nucOne === "C" && nucTwo === "G" ||
 		nucOne === "A" && nucTwo === "U" || 
-		nucOne === "U" && nucTwo === "A") {
+		nucOne === "U" && nucTwo === "A" ||
+		nucOne === "A" && nucTwo === "T" || 
+		nucOne === "T" && nucTwo === "A") {
 		watsonCrick = true;
 	}
 	return watsonCrick;
