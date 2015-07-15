@@ -3,8 +3,8 @@ var rna = require("drawrnajs");
 var app = rna.vis;
 
 //initalize input boxes with example structure
-document.getElementById('SEQ_BOX').value = "CAGCACGACACUAGCAGUCAGUGUCAGACUGCARACAGCACGACACUAGCAGUCAGUGUCAGACUGCARACAGCACGACACUAGCAGUCAGUGUCAGACUGCARA";
-document.getElementById('DOTBR_BOX').value = "..(((((...(((((...(((((...(((((.....)))))...))))).....(((((...(((((.....)))))...))))).....)))))...)))))..";
+document.getElementById('SEQ_BOX').value = "CGCUUCAUAUAAUCCUAAUGAUAUGGUUUGGGAGUUUCUACCAAGAGCCUUAAACUCUUGAUUAUGAAGUG";
+document.getElementById('DOTBR_BOX').value = "(((((((((...((((((.........))))))........((((((.......))))))..)))))))))";
 //init colors
 $("#acolor").spectrum({ color: "#64F73F" });
 $("#ccolor").spectrum({ color: "#FFB340" });
@@ -25,7 +25,7 @@ app({graph: struct, el: cy, doc: document, win: window});
 
 var runButton = document.getElementById('PERFORM_VIS');
 runButton.readOnly = true;
-runButton.addEventListener('click', function(){ 
+runButton.addEventListener('click', function(){
 	document.getElementById('ALERT').value = "";
 	var input = rna.io.getInputSequences();
 	if(rna.io.checkConditions(input)){
