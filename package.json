@@ -55,6 +55,13 @@
   "keywords": [
     "rna",
     "secondary structure",
-    "biojs"
-  ]
+    "biojs",
+    "galaxy-vis"
+  ],
+  "galaxy": {
+    "datatypes": [
+      "sequence.DotBracket"
+    ]
+  }
+
 }
