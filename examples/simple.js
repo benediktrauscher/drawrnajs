@@ -1,8 +1,8 @@
 var Rna = require("drawrnajs");
 
 var input = [
-    "GCCACAUGAUGAUAUCAAGGCUGUUGUGAUUCAGUUGGUUUGGCUAAGCCCAGGGACCUUUGGCCUGUUAAAGGUCUGUAAUCUUGGUGGGCGAUACAGAGUUAUGUGUGUUCACUGUAAGGGCAGACCAACAAGAACUUUUUCCUACUUUUGAGCUACCUCUUUUUAAUAGGGGUGAUUCUUCCAGUUGCUGGAGAGAAAUUGUGGUAACUGGAGUGAGAGAGUAGGAACAGGGCAUGUUCAGGGUAUCAGGGCCAAGGGUCCUAAAGGACUUAGCUUGUGUUAUGGCCACUGAGAGAUGAAACACAGAUCUUUGGUAAUCUGAUGGCU",
-    "((((...(((((((((((((((((...((((((((.((((.(((((((.((.(((((((((((((((((...(((((((..((((((((((((.((((......))))))))))))..))))))))))))))..(((((((.(((((((((((...))(((((.......)))))((((((((((((...))))).)))..(.((....)).))...))))))))))))(((.....)))..))))).)).))))))))))))))...)).))))))).((...)))))))))....))))))...)))..)))))))).)))))))))."
+    "CAGCACGACACUAGCAGUCAGUGUCAGACUGCAIACAGCACGACACUAGCAGUCAGUGUCAGACUGCAIACAGCACGACACUAGCAGUCAGUGUCAGACUGCAIA",
+    "..(((((...(((((...(((((...(((((.....)))))...))))).....(((((...(((((.....)))))...))))).....)))))...))))).."
 ];
 var app = new Rna({
     el: yourDiv,
