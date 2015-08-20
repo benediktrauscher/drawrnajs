@@ -1,7 +1,7 @@
 {
   "name": "drawrnajs",
   "description": "Visualizes RNA secondary structures.",
-  "version": "0.3.5",
+  "version": "1.0.0",
   "homepage": "https://github.com/bene200/drawrnajs",
   "author": {
     "name": "bene200",
@@ -47,9 +47,9 @@
       "/build/drawrnajs.js"
     ],
     "css": [
-        "/style/bootstrap.css",
-        "/style/spectrum.css",
-        "/style/style.css"
+      "/style/bootstrap.css",
+      "/style/spectrum.css",
+      "/style/style.css"
     ],
     "snippets": [
       "examples"
