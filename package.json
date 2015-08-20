@@ -20,7 +20,7 @@
       "url": "https://github.com/bene200/drawrnajs/blob/master/LICENSE"
     }
   ],
-  "main": "src/index.js",
+  "main": "src/drawrna.js",
   "scripts": {
     "test": "echo 'Error: no test specified' && exit 1",
     "build": "mkdirp build && browserify -r ./:drawrnajs -o build/drawrnajs.js",
@@ -30,8 +30,11 @@
     "sniper": "biojs-sniper ."
   },
   "dependencies": {
-    "cytoscape": "2.3.7",
-    "jquery": "^2.1.3"
+    "cytoscape": "^2.4.6",
+    "jquery": "^2.1.3",
+    "Backbone": "^1.2.2",
+    "cytoscape-edgehandles": "^2.0.0",
+    "underscore": "^1.3.8"
   },
   "devDependencies": {
     "mkdirp": "^0.5.0",
@@ -44,8 +47,9 @@
       "/build/drawrnajs.js"
     ],
     "css": [
-      "/style/style.css",
-      "/style/spectrum.css"
+        "/style/bootstrap.css",
+        "/style/spectrum.css",
+        "/style/style.css"
     ],
     "snippets": [
       "examples"

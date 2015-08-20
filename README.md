@@ -1,40 +1,63 @@
-[![NPM version](http://img.shields.io/npm/v/drawrnajs.svg)](https://www.npmjs.org/package/drawrnajs) 
+[![NPM version](http://img.shields.io/npm/v/drawrnajs.svg)](https://www.npmjs.org/package/drawrnajs)
 
 > Visualizes RNA secondary structures.
 
-## Documentation
+DrawrnaJS
+==========
+
 To install the module, use: 'npm install drawrnajs'
 
-To use the module, first include drawrnajs.js in your HTML file.
-Now you can use it in your javascript with
+DrawrnaJS visualises RNA secondary structures in [Dot-bracket notation](http://ultrastudio.org/en/Dot-Bracket_Notation). It is heavily based on [cytoscape.js](http://biojs.io/d/cytoscape). The algorithm used for layout determination is deterministic and will therefore always provide the same visualisation for a specific secondary structure.
+
+####  Features
+* Deterministic layout
+* Residues can be coloured according to type
+* Precise selection and colouring via a lasso tool
+* Interactive mode for hydrogen bond adding
+* Export structure as PNG
+
+## Use DrawrnaJS
+
+Please refer to the examples, which show several possible ways of how you could embed DrawrnaJS into your page.
+
+#### Initialisation
 
 ```javascript
-var drawrnajs = require('drawrnajs');
-```
+var Rna = require("drawrnajs");
 
-In order to visualize your RNA secondary structure you first have to convert your sequence and corresponding dot-bracket notation to a JSON format which specifies nodes and edges of the structure. 
+var app = new Rna({
+    el: yourDiv,
+    seq: "<your RNA sequence>",
+    dotbr: "<your secondary structure>",
+    /* ... */
+})
+app.render();
 
-```javascript
-var structure = rna.t.transformDotBracket(yourSequence, yourDotBracket);
-```
-
-Drawrnajs uses [cytoscape](http://biojs.io/d/cytoscape) to draw the structure. For that reason you need to add a cytoscape element to the div of your choice in your HTML file.
-The cytoscape element should have the following style specifications:
-
-```css
-#cy {
-    height: 100%;
-    width: 100%;
-    position: absolute;
+var defaults = {
+    layout: "naview", //the only layout that is currently supported
+    seqpanel: true, //determines whether there is going to be a sqeuence panel
+    optspanel: true, //determines whethere there is going to be an options panel
+    resindex: true //determines whether residue indices are shown
 }
 ```
-For more details about cytoscape please refer to the cytoscape documentation.
-
-Now you can visualize your RNA secondary structure inside your cytoscape element like this:
+#### Set sequence and structure
 
 ```javascript
-var cy = document.getElementById('cy');
-rna.vis({graph: structure: el: cy});
+app.struct.get("seq") //get RNA sequence
+app.struct.get("dotbr") //get structure
+app.struct.set("seq", "ACGUACGAUCGUA") //set new sequence
+```
+
+#### Get the cytoscape element
+
+```javascript
+var cy = app.vis.cy //location of the cytoscape element
+```
+
+#### Add new bonds
+
+```javascript
+app.struct.get("links").newBond(12, 23) //creates a new bond between residues 12 and 23
 ```
 
 ## Contributing
@@ -45,7 +68,7 @@ All contributions are welcome.
 
 If you have any problem or suggestion please open an issue [here](https://github.com/bene200/drawrnajs/issues).
 
-## License 
+## License
 
 The MIT License
 

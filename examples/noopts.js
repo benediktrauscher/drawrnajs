@@ -1,7 +1,16 @@
-var rna = require("drawrnajs");
-var app = rna.vis;
+var Rna = require("drawrnajs");
 
-var input = ["GAGUACAAUAUGUACCG", "..((((.....)))).."];
-var struct = rna.t.transformDotBracket(input[0], input[1]);
-yourDiv.className += " cy";
-app({graph: struct, el: yourDiv});
+var input = [
+    "CAGCACGACACUAGCAGUCAGUGUCAGACUGCAIACAGCACGACACUAGCAGUCAGUGUCAGACUGCAIACAGCACGACACUAGCAGUCAGUGUCAGACUGCAIA",
+    "..(((((...(((((...(((((...(((((.....)))))...))))).....(((((...(((((.....)))))...))))).....)))))...))))).."
+];
+var app = new Rna({
+    el: yourDiv,
+    seq: input[0],
+    dotbr: input[1],
+    layout: "naview",
+    seqpanel: true,
+    optspanel: false,
+    resindex: false
+})
+app.render();
