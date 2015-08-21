@@ -33,7 +33,7 @@ var AnnoView = Backbone.View.extend({
         this.remove();
     },
     render: function(){
-        //HTML
+        //HTML SETUP
         var res1 = this.anno.get("edge").source().data("label");
         var res2 = this.anno.get("edge").target().data("label");
         var edefs = this.anno.getLabels();
