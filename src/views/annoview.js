@@ -34,8 +34,8 @@ var AnnoView = Backbone.View.extend({
     },
     render: function(){
         //HTML SETUP
-        var res1 = this.anno.get("edge").source().data("label");
-        var res2 = this.anno.get("edge").target().data("label");
+        var res1 = this.anno.get("edge").target().data("label");
+        var res2 = this.anno.get("edge").source().data("label");
         var edefs = this.anno.getLabels();
 
         this.el.innerHTML += "<div class='col-md-4'>"
