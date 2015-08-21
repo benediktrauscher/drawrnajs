@@ -2,6 +2,7 @@ var Backbone = require("backbone");
 var cytoscape = require("cytoscape");
 var $ = jQuery = require("jquery");
 var Link = require("../models/link");
+var AnnoView = require("./annoview");
 var edgehandles = require("cytoscape-edgehandles")(cytoscape, $);
 
 var Vispanel = Backbone.View.extend({
@@ -9,6 +10,7 @@ var Vispanel = Backbone.View.extend({
         this.el = opts.el;
         this.struct = opts.struct;
         this.resindex = opts.resindex;
+        this.annotate = true;
 
         //events
         this.listenTo(this.struct, "change:renderSwitch", this.render);
@@ -58,6 +60,135 @@ var Vispanel = Backbone.View.extend({
                         "line-color": "red",
                         "target-arrow-color": "red",
                         "target-arrow-color": "red"
+                    })
+                    .selector(".wcwccis")
+                    .css({
+                        "mid-target-arrow-shape": "circle",
+                        "mid-target-arrow-color": "red"
+                    })
+                    .selector(".wcsgcis")
+                    .css({
+                        "source-arrow-shape": "circle",
+                        "source-arrow-color": "red",
+                        "target-arrow-shape": "triangle",
+                        "target-arrow-color": "red"
+                    })
+                    .selector(".sgwccis")
+                    .css({
+                        "target-arrow-shape": "circle",
+                        "target-arrow-color": "red",
+                        "source-arrow-shape": "triangle",
+                        "source-arrow-color": "red"
+                    })
+                    .selector(".hgsgcis")
+                    .css({
+                        "source-arrow-shape": "square",
+                        "source-arrow-color": "red",
+                        "target-arrow-shape": "triangle",
+                        "target-arrow-color": "red"
+                    })
+                    .selector(".sghgcis")
+                    .css({
+                        "target-arrow-shape": "square",
+                        "target-arrow-color": "red",
+                        "source-arrow-shape": "triangle",
+                        "source-arrow-color": "red"
+                    })
+                    .selector(".wchgcis")
+                    .css({
+                        "source-arrow-shape": "circle",
+                        "source-arrow-color": "red",
+                        "target-arrow-shape": "square",
+                        "target-arrow-color": "red"
+                    })
+                    .selector(".hgwccis")
+                    .css({
+                        "target-arrow-shape": "circle",
+                        "target-arrow-color": "red",
+                        "source-arrow-shape": "square",
+                        "source-arrow-color": "red"
+                    })
+                    .selector(".sgsgcis")
+                    .css({
+                        "mid-target-arrow-shape": "triangle",
+                        "mid-target-arrow-color": "red"
+                    })
+                    .selector(".wcwctrans")
+                    .css({
+                        "mid=target-arrow-shape": "circle",
+                        "mid-target-arrow-color": "red",
+                        "mid-target-arrow-fill": "hollow"
+                    })
+                    .selector(".wcsgtrans")
+                    .css({
+                        "source-arrow-shape": "circle",
+                        "source-arrow-color": "red",
+                        "target-arrow-shape": "triangle",
+                        "target-arrow-color": "red",
+                        "target-arrow-fill": "hollow",
+                        "source-arrow-fill": "hollow"
+                    })
+                    .selector(".sgwctrans")
+                    .css({
+                        "target-arrow-shape": "circle",
+                        "target-arrow-color": "red",
+                        "source-arrow-shape": "triangle",
+                        "source-arrow-color": "red",
+                        "source-arrow-fill": "hollow",
+                        "target-arrow-fill": "hollow"
+                    })
+                    .selector(".hgsgtrans")
+                    .css({
+                        "source-arrow-shape": "square",
+                        "source-arrow-color": "red",
+                        "target-arrow-shape": "triangle",
+                        "target-arrow-color": "red",
+                        "target-arrow-fill": "hollow",
+                        "source-arrow-fill": "hollow"
+                    })
+                    .selector(".sghgtrans")
+                    .css({
+                        "target-arrow-shape": "square",
+                        "target-arrow-color": "red",
+                        "source-arrow-shape": "triangle",
+                        "source-arrow-color": "red",
+                        "source-arrow-fill": "hollow",
+                        "target-arrow-fill": "hollow"
+                    })
+                    .selector(".wchgtrans")
+                    .css({
+                        "source-arrow-shape": "circle",
+                        "source-arrow-color": "red",
+                        "target-arrow-shape": "square",
+                        "target-arrow-color": "red",
+                        "target-arrow-fill": "hollow",
+                        "source-arrow-fill": "hollow"
+                    })
+                    .selector(".hgwctrans")
+                    .css({
+                        "target-arrow-shape": "circle",
+                        "target-arrow-color": "red",
+                        "source-arrow-shape": "square",
+                        "source-arrow-color": "red",
+                        "source-arrow-fill": "hollow",
+                        "target-arrow-fill": "hollow"
+                    })
+                    .selector(".sgsgtrans")
+                    .css({
+                        "mid-target-arrow-shape": "triangle",
+                        "mid-target-arrow-color": "red",
+                        "mid-target-arrow-fill": "hollow"
+                    })
+                    .selector(".hghgcis")
+                    .css({
+                        "mid-target-arrow-shape": "square",
+                        "mid-target-arrow-color": "red",
+                    })
+                    .selector(".hghgtrans")
+                    .css({
+                        "mid-target-arrow-shape": "square",
+                        "mid-target-arrow-color": "red",
+                        "mid-target-arrow-fill": "hollow"
                     }),
       		elements: self.struct.toCytoscape(),
       		layout: {
@@ -66,8 +197,17 @@ var Vispanel = Backbone.View.extend({
         		name: 'preset',
       		},
           	ready: function(){
+                this.edges("[label='violation']").addClass("wcwccis");
                 this.on("tapstart", function(evt){
                     this.$(".chosen").removeClass("chosen");
+                });
+
+                this.on("tap", "edge", function(evt){
+                    if(self.annotate && this.data("label") === "violation"){
+                        var obj = this._private.classes;
+                        for(var c in obj) break;
+                        new AnnoView(c.substring(0, 2), c.substring(2, 4), c.substring(4, c.length+1), this);
+                    }
                 });
 
                 if(self.resindex){
