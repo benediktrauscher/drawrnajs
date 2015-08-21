@@ -201,7 +201,19 @@ var Vispanel = Backbone.View.extend({
                 this.on("tapstart", function(evt){
                     this.$(".chosen").removeClass("chosen");
                 });
-
+                this.on("tapdragover", "node", function(evt){
+                    var seqbox = document.getElementById("seqbox");
+                    if(seqbox && (this.id() < seqbox.value.length)){
+                        seqbox.selectionStart = parseInt(this.id());
+                        seqbox.selectionEnd = parseInt(this.id())+1;
+                    }
+                });
+                this.on("tapdragout", "node", function(evt){
+                    var seqbox = document.getElementById("seqbox");
+                    if(seqbox && (this.id() < seqbox.value.length)){
+                        seqbox.selectionEnd = -1;
+                    }
+                });
                 this.on("tap", "edge", function(evt){
                     if(self.annotate && this.data("label") === "violation"){
                         var obj = this._private.classes;
