@@ -4,6 +4,7 @@ var $ = jQuery = require("jquery");
 var Link = require("../models/link");
 var AnnoView = require("./annoview");
 var edgehandles = require("cytoscape-edgehandles")(cytoscape, $);
+var Style = require("../utils/style");
 
 var Vispanel = Backbone.View.extend({
     initialize: function(opts){
@@ -23,173 +24,7 @@ var Vispanel = Backbone.View.extend({
 
         this.cy = cytoscape({
       		container: self.el,
-      		style: cytoscape.stylesheet()
-                    .selector("node")
-                    .css({
-                        "content": "data(label)",
-                        "text-valign": "center",
-                        "color": "white",
-                        "text-outline-width": 2,
-                        "text-outline-color": "#778899"
-                    })
-                    .selector("edge")
-                    .css({
-                        "background-color": "white"
-                    })
-                    .selector(".chosen")
-                    .css({
-                        "background-color": "black",
-                        "opacity": 0.6
-                    })
-                    .selector(".edgehandles-hover")
-                    .css({
-                        "background-color": "red"
-                    })
-                    .selector(".edgehandles-source")
-                    .css({
-                        "border-width": 2,
-                        "border-color": "red"
-                    })
-                    .selector(".edgehandles-target")
-                    .css({
-                        "border-width": 2,
-                        "border-color": "red"
-                    })
-                    .selector(".edgehandles-preview, .edgehandles-ghost-edge")
-                    .css({
-                        "line-color": "red",
-                        "target-arrow-color": "red",
-                        "target-arrow-color": "red"
-                    })
-                    .selector(".wcwccis")
-                    .css({
-                        "mid-target-arrow-shape": "circle",
-                        "mid-target-arrow-color": "red"
-                    })
-                    .selector(".wcsgcis")
-                    .css({
-                        "source-arrow-shape": "circle",
-                        "source-arrow-color": "red",
-                        "target-arrow-shape": "triangle",
-                        "target-arrow-color": "red"
-                    })
-                    .selector(".sgwccis")
-                    .css({
-                        "target-arrow-shape": "circle",
-                        "target-arrow-color": "red",
-                        "source-arrow-shape": "triangle",
-                        "source-arrow-color": "red"
-                    })
-                    .selector(".hgsgcis")
-                    .css({
-                        "source-arrow-shape": "square",
-                        "source-arrow-color": "red",
-                        "target-arrow-shape": "triangle",
-                        "target-arrow-color": "red"
-                    })
-                    .selector(".sghgcis")
-                    .css({
-                        "target-arrow-shape": "square",
-                        "target-arrow-color": "red",
-                        "source-arrow-shape": "triangle",
-                        "source-arrow-color": "red"
-                    })
-                    .selector(".wchgcis")
-                    .css({
-                        "source-arrow-shape": "circle",
-                        "source-arrow-color": "red",
-                        "target-arrow-shape": "square",
-                        "target-arrow-color": "red"
-                    })
-                    .selector(".hgwccis")
-                    .css({
-                        "target-arrow-shape": "circle",
-                        "target-arrow-color": "red",
-                        "source-arrow-shape": "square",
-                        "source-arrow-color": "red"
-                    })
-                    .selector(".sgsgcis")
-                    .css({
-                        "mid-target-arrow-shape": "triangle",
-                        "mid-target-arrow-color": "red"
-                    })
-                    .selector(".wcwctrans")
-                    .css({
-                        "mid=target-arrow-shape": "circle",
-                        "mid-target-arrow-color": "red",
-                        "mid-target-arrow-fill": "hollow"
-                    })
-                    .selector(".wcsgtrans")
-                    .css({
-                        "source-arrow-shape": "circle",
-                        "source-arrow-color": "red",
-                        "target-arrow-shape": "triangle",
-                        "target-arrow-color": "red",
-                        "target-arrow-fill": "hollow",
-                        "source-arrow-fill": "hollow"
-                    })
-                    .selector(".sgwctrans")
-                    .css({
-                        "target-arrow-shape": "circle",
-                        "target-arrow-color": "red",
-                        "source-arrow-shape": "triangle",
-                        "source-arrow-color": "red",
-                        "source-arrow-fill": "hollow",
-                        "target-arrow-fill": "hollow"
-                    })
-                    .selector(".hgsgtrans")
-                    .css({
-                        "source-arrow-shape": "square",
-                        "source-arrow-color": "red",
-                        "target-arrow-shape": "triangle",
-                        "target-arrow-color": "red",
-                        "target-arrow-fill": "hollow",
-                        "source-arrow-fill": "hollow"
-                    })
-                    .selector(".sghgtrans")
-                    .css({
-                        "target-arrow-shape": "square",
-                        "target-arrow-color": "red",
-                        "source-arrow-shape": "triangle",
-                        "source-arrow-color": "red",
-                        "source-arrow-fill": "hollow",
-                        "target-arrow-fill": "hollow"
-                    })
-                    .selector(".wchgtrans")
-                    .css({
-                        "source-arrow-shape": "circle",
-                        "source-arrow-color": "red",
-                        "target-arrow-shape": "square",
-                        "target-arrow-color": "red",
-                        "target-arrow-fill": "hollow",
-                        "source-arrow-fill": "hollow"
-                    })
-                    .selector(".hgwctrans")
-                    .css({
-                        "target-arrow-shape": "circle",
-                        "target-arrow-color": "red",
-                        "source-arrow-shape": "square",
-                        "source-arrow-color": "red",
-                        "source-arrow-fill": "hollow",
-                        "target-arrow-fill": "hollow"
-                    })
-                    .selector(".sgsgtrans")
-                    .css({
-                        "mid-target-arrow-shape": "triangle",
-                        "mid-target-arrow-color": "red",
-                        "mid-target-arrow-fill": "hollow"
-                    })
-                    .selector(".hghgcis")
-                    .css({
-                        "mid-target-arrow-shape": "square",
-                        "mid-target-arrow-color": "red",
-                    })
-                    .selector(".hghgtrans")
-                    .css({
-                        "mid-target-arrow-shape": "square",
-                        "mid-target-arrow-color": "red",
-                        "mid-target-arrow-fill": "hollow"
-                    }),
+      		style: (new Style()).getCytoscapeStyle(),
       		elements: self.struct.toCytoscape(),
       		layout: {
       			//Use preset layout with precalculated
@@ -197,7 +32,12 @@ var Vispanel = Backbone.View.extend({
         		name: 'preset',
       		},
           	ready: function(){
-                this.edges("[label='violation']").addClass("wcwccis");
+                this.edges("[label='violation']").each(function(index, ele){
+                    if(Object.keys(ele._private.classes).length === 0){
+                        ele.addClass("wcwccis");
+                    }
+                });
+                //events
                 this.on("tapstart", function(evt){
                     this.$(".chosen").removeClass("chosen");
                 });
@@ -222,44 +62,9 @@ var Vispanel = Backbone.View.extend({
                     }
                 });
 
+                //Residue Nodes
                 if(self.resindex){
-                    //index nodes
-                    for(var i=1; i<self.struct.get("seq").length/5; i++){
-                        pos = self.getPos(self.struct, (i*5)-1);
-                        this.add({
-                            group: "nodes",
-                			data: {
-                				id: (self.struct.get("seq").length + i).toString(),
-                				label: (i*5) + "",
-                                type: "index"
-                			},
-                			position: {
-                				x: pos[0],
-                				y: pos[1]
-                			},
-                			selected: false,
-                			selectable: false,
-                			locked: false,
-                			grabbable: true,
-                			css: {
-                				"background-color": "#fff"
-                			}
-                        });
-                        this.add({
-                            group: "edges",
-                			data: {
-                				id: "index" + i,
-                				source: (i*5) - 1,
-                    			target: self.struct.get("seq").length + i,
-                    			label: i*5,
-                    			weight: 4
-                			},
-                			css: {
-                				'line-color': "black",
-                				'width': 4
-                			}
-                        });
-                    }
+                    self.setResidueNodes(this);
                 }
           	},
             userPanningEnabled: true,
@@ -273,13 +78,52 @@ var Vispanel = Backbone.View.extend({
             },
             complete: function(srcNode, targetNode, addedEntities){
                 // fired when edgehandles is done and entities are added
-                self.struct.get("links").newBond(srcNode[0], targetNode[0]);
+                self.struct.get("links").newBond(srcNode[0].id(), targetNode[0].id());
             },
             enabled: false,
             preview: false
 		});
 
         this.trigger("rendered");
+    },
+    setResidueNodes: function(cy){
+        //index nodes
+        for(var i=1; i<this.struct.get("seq").length/5; i++){
+            pos = this.getPos(this.struct, (i*5)-1);
+            this.cy.add({
+                group: "nodes",
+                data: {
+                    id: (this.struct.get("seq").length + i).toString(),
+                    label: (i*5) + "",
+                    type: "index"
+                },
+                position: {
+                    x: pos[0],
+                    y: pos[1]
+                },
+                selected: false,
+                selectable: false,
+                locked: false,
+                grabbable: true,
+                css: {
+                    "background-color": "#fff"
+                }
+            });
+            cy.add({
+                group: "edges",
+                data: {
+                    id: "index" + i,
+                    source: (i*5) - 1,
+                    target: this.struct.get("seq").length + i,
+                    label: i*5,
+                    weight: 4
+                },
+                css: {
+                    'line-color': "black",
+                    'width': 4
+                }
+            });
+        }
     },
     getPos: function(struct, target){
         var distance = 50;
@@ -306,6 +150,68 @@ var Vispanel = Backbone.View.extend({
             angleFactor += 0.05
         }
         return [x, y];
+    },
+    changeBondType: function(bondid, type){
+        if(type === "canonical"){
+            this.cy.$("#" + bondid)[0].style("line-color", "#3A9AD9")
+            this.cy.$("#" + bondid)[0].style("width", 4);
+            this.cy.$("#" + bondid)[0]._private.classes = {};
+        }
+        else if(type === "non-canonical"){
+            this.cy.$("#" + bondid)[0].style("line-color", "red");
+            this.cy.$("#" + bondid)[0].style("width", 4);
+            this.cy.$("#" + bondid)[0].addClass("wcwccis");
+        }
+        else {
+            throw new Error("Type must be 'canoncial' or 'non-canonical'");
+        }
+    },
+    addNCBond: function(source, target){
+        this.cy.add({
+            group: "edges",
+            data: {
+                id: source + "to" + target,
+                source: source.toString(),
+                target: target.toString()
+            },
+            css: {
+                "line-color": "red",
+                "width": 4
+            }
+        });
+        this.cy.$("#" + source + "to" + target)[0].addClass("wcwccis");
+    },
+    setLeontisWesthof: function(edge, lwclass){
+        var validClasses = [
+            "wcwccis",
+            "wcwctrans",
+            "sgsgcis",
+            "sgsgtrans",
+            "hghgcis",
+            "hghgtrans",
+            "wcsgcis",
+            "wcsgtrans",
+            "sgwccis",
+            "sgwctrans",
+            "wchgcis",
+            "wchgtrans",
+            "hgwccis",
+            "hgwctrans",
+            "hgsgcis",
+            "hgsgtrans",
+            "sghgcis",
+            "sghgtrans"
+        ];
+        if(validClasses.indexOf(lwclass) === -1){
+            throw new Error("LW-Class must be one of " + validClasses);
+        }
+        else {
+            var classes = Object.keys(this.cy.$("#" + edge)[0]._private.classes);
+            for(var i=0; i<classes.length; i++){
+                this.cy.$("#" + edge)[0].removeClass(classes[i]);
+            }
+            this.cy.$("#" + edge)[0].addClass(lwclass);
+        }
     }
 });
 

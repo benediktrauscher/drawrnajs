@@ -66,7 +66,7 @@ var Structure = Backbone.Model.extend({
         this.set("residues", resCol);
 
         //set bonds
-        var linkCol = new LinkCol(null, style);
+        var linkCol = new LinkCol(null, style, resCol);
         for(var i=0; i<graph.links.length; i++){
             linkCol.add(new Link({
                 id: graph.links[i].source + "to" + graph.links[i].target,

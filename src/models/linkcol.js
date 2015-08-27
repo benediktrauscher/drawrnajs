@@ -4,17 +4,20 @@ var pdbr = require("../utils/parsedbr");
 
 var LinkCol = Backbone.Collection.extend({
     model: Link,
-    initialize: function(model, stl){
+    initialize: function(model, stl, residues){
         this.style = stl;
+        this.residues = residues;
     },
     newBond: function(src, target){
-        var type = pdbr.getType(pdbr.isWatsonCrick(src.data("label"), target.data("label")));
+        var res1 = this.residues.at(parseInt(src));
+        var res2 = this.residues.at(parseInt(target));
+        var type = pdbr.getType(pdbr.isWatsonCrick(res1, res2));
         var style = this.style;
 
         this.add(new Link({
-            id: src.id() + "to" + target.id(),
-            source: src.id(),
-            target: target.id(),
+            id: src + "to" + target,
+            source: src,
+            target: target,
             label: type,
             weight: style.getWeight(type),
             color: style.getColor(type)
