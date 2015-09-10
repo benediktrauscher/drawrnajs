@@ -59,8 +59,48 @@ var cy = app.vis.cy //location of the cytoscape element
 #### Add new bonds
 
 ```javascript
-app.struct.get("links").newBond(12, 23) //creates a new bond between residues 12 and 23
+app.struct.get("links").newBond("12", "23") //creates a new bond between residues 12 and 23
 ```
+
+#### Change the type of a bond
+
+```javascript
+app.vis.changeBondType("1to7", "non-canonical") //change the bond type of bond with 
+                                                //bond-id "1to7" to non-canonical
+```
+
+#### Add a new non-canonical bond without re-calculating the layout
+
+```javascript
+app.vis.addNCBond(12, 23) //creates a new bond between residues 12 and 23 
+                          //without re-calculating the layout algorithm
+```
+
+#### Set Leontis-Westhof nomenclature for bond
+
+```javascript
+app.vis.setLeontisWesthof("2to7", "sghgtrans") //sets Leontis-Westhof nomenclature
+                                               //of non-canonical bond "2to7" to "sghgtrans"
+```
+
+The Leontis-Westhof nomenclature classes are formatted as follows
+
+```javascript
+lwClasses = [
+    "wcwccis",
+    "wcwctrans",
+    "sgsgcis",
+    "sgsgtrans",
+    "hghgcis",
+    "hghgtrans",
+    "sghgcis",
+    "sghgtrans",
+    "hgsgcis",
+    "hgsgtrans"
+    //etc.
+]
+```
+The first two charcters define the bond edge of residue 1, the second two characters define the ond edge of residue 2 and the rest of the class labels is either cis or trans. Bond edges are one of the following: wc (Watson-Crick), hg (Hoogsteen) or sg (Sugar).
 
 ## Contributing
 
