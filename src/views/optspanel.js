@@ -3,6 +3,7 @@ var $ = jQuery = require("jquery");
 var spectrum = require("../utils/spectrum")($);
 var lassotool = require("../utils/lasso")($);
 var _ = require("underscore");
+var tooltip = require("tooltip");
 
 var Optspanel = Backbone.View.extend({
     events: {
@@ -22,9 +23,19 @@ var Optspanel = Backbone.View.extend({
         this.listenTo(this.vis, "rendered", this.checkMode)
     },
     render: function(){
-        this.el.innerHTML += '<div class="cntrl"><button class="icon" id="discovery" value="Discovery mode" readonly="readonly"><img class="mode" src="http://www.cipherpoint.com/wp-content/uploads/2014/07/search.png"></button>'
-                        + '<button class="icon" id="lasso" value="Lasso mode" readonly="readonly"><img class="mode" src="https://d30y9cdsu7xlg0.cloudfront.net/png/21906-200.png"></button>'
-                        + '<button class="icon" id="newbond" value="Bond drawing mode" readonly="readonly"><img class="mode" src="http://vseo.vn/dao-tao-seo/uploads/tin-tuc/anchor-link.png"></button></div>';
+        tooltip({
+            showDelay: 100,
+            offset: {
+                x: -85,
+                y: 0
+            },
+            style: {
+                "border-radius": "5px"
+            }
+        });
+        this.el.innerHTML += '<div class="cntrl"><button class="icon" id="discovery" data-tooltip="Exploration mode" value="Discovery mode" readonly="readonly"><img class="mode" src="http://www.cipherpoint.com/wp-content/uploads/2014/07/search.png"></button>'
+                        + '<button class="icon" id="lasso" value="Lasso mode"  data-tooltip="Selection mode" readonly="readonly"><img class="mode" src="https://d30y9cdsu7xlg0.cloudfront.net/png/21906-200.png"></button>'
+                        + '<button class="icon" id="newbond" value="Bond drawing mode" data-tooltip="Editing mode" readonly="readonly"><img class="mode" src="http://vseo.vn/dao-tao-seo/uploads/tin-tuc/anchor-link.png"></button></div>';
   		this.el.innerHTML += '<div class="col-md-3"><p class="res">A</p></div>';
   		this.el.innerHTML += '<div class="col-md-3"><p class="res">C</p></div>';
   		this.el.innerHTML += '<div class="col-md-3"><p class="res">G</p></div>';
