@@ -18,6 +18,8 @@ DrawrnaJS visualises RNA secondary structures in [Dot-bracket notation](http://u
 
 ## Use DrawrnaJS
 
+[Full screen demo](http://workmen.biojs.net/demo/drawrnajs/simple)
+
 Please refer to the examples, which show several possible ways of how you could embed DrawrnaJS into your page.
 
 #### Initialisation
