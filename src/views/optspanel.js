@@ -94,7 +94,7 @@ var Optspanel = Backbone.View.extend({
     },
     exportAsPNG: function(){
         var cy = this.vis.cy;
-        var png64 = cy.png();
+        var png64 = cy.png({scale: 5});
         var newTab = window.open();
         newTab.document.write("<img src=" + png64 + " />");
         newTab.focus();
