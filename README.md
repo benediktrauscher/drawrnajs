@@ -102,6 +102,11 @@ lwClasses = [
 ```
 The first two charcters define the bond edge of residue 1, the second two characters define the ond edge of residue 2 and the rest of the class labels is either cis or trans. Bond edges are one of the following: wc (Watson-Crick), hg (Hoogsteen) or sg (Sugar).
 
+#### Layouts
+
+Currently the "naview" layout, which is a JavaScript port of [VARNA](http://varna.lri.fr/)'s NAView layout, is used for all the example structures. 
+We intend to implement other layouts in the future.
+
 ## Contributing
 
 All contributions are welcome.
