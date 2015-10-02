@@ -4,6 +4,7 @@ var input = [
     "CAGCACGACACUAGCAGUCAGUGUCAGACUGCAIACAGCACGACACUAGCAGUCAGUGUCAGACUGCAIACAGCACGACACUAGCAGUCAGUGUCAGACUGCAIA",
     "..(((((...(((((...(((((...(((((.....)))))...))))).....(((((...(((((.....)))))...))))).....)))))...))))).."
 ];
+
 var app = new Rna({
     el: yourDiv,
     seq: input[0],
@@ -11,6 +12,6 @@ var app = new Rna({
     layout: "naview",
     seqpanel: true,
     optspanel: false,
-    resindex: false
+    resindex: true
 })
 app.render();

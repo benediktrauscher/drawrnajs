@@ -21,7 +21,7 @@ var Drawrnajs = Backbone.View.extend({
         }
         //main view
         var visEl = document.createElement("div")
-        visEl.id = "cy";
+        visEl.className = "cy";
         this.el.appendChild(visEl);
         this.vis = new Vispanel({
             el: visEl,
