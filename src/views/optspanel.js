@@ -116,11 +116,11 @@ var Optspanel = Backbone.View.extend({
         cy.edgehandles("disable");
         this.bondDrawing = false;
         //add lasso
-        $("#cy")
+        $(".cy")
         .lasso()
         .on("lassoBegin", function(e, lassoPoints) {
             polygon = [];
-            canvas = document.getElementById("cy").childNodes[1];
+            canvas = self.vis.el.childNodes[1];
             c2 = canvas.getContext('2d');
             c2.fillStyle = "rgba(100, 100, 100, 0.02)";
             c2.beginPath();
@@ -175,9 +175,9 @@ var Optspanel = Backbone.View.extend({
     },
     removeLasso: function(){
         //remove lasso
-        $("#cy").lasso().off("lassoBegin");
-        $("#cy").lasso().off("lassoDone");
-        $("#cy").lasso().unbind("lassoPoint");
+        $(".cy").lasso().off("lassoBegin");
+        $(".cy").lasso().off("lassoDone");
+        $(".cy").lasso().unbind("lassoPoint");
     },
     checkMode: function(){
         if(this.bondDrawing){
