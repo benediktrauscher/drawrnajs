@@ -58,7 +58,7 @@ var Vispanel = Backbone.View.extend({
                     if(self.annotate && this.data("label") === "violation"){
                         var obj = this._private.classes;
                         for(var c in obj) break;
-                        new AnnoView(c.substring(0, 2), c.substring(2, 4), c.substring(4, c.length+1), this);
+                        new AnnoView(c.substring(0, 2), c.substring(2, 4), c.substring(4, c.length+1), this, self.el);
                     }
                 });
 

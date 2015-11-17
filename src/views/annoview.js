@@ -15,9 +15,9 @@ var AnnoView = Backbone.View.extend({
         "click #st1": "selectStericityCis",
         "click #st2": "selectStericityTrans"
     },
-    initialize: function(b1, b2, st, edge){
+    initialize: function(b1, b2, st, edge, cyEle){
         var el = document.createElement("div");
-        document.getElementById("cy").parentNode.appendChild(el);
+        cyEle.parentNode.appendChild(el);
         this.setElement(el);
         this.anno = new NCAnno(b1, b2, st, edge);
         //CSS
