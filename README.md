@@ -7,7 +7,7 @@ DrawrnaJS
 
 To install the module, use: 'npm install drawrnajs'
 
-DrawrnaJS visualises RNA secondary structures in [Dot-bracket notation](http://ultrastudio.org/en/Dot-Bracket_Notation). It is heavily based on [cytoscape.js](http://biojs.io/d/cytoscape). The algorithm used for layout determination is deterministic and will therefore always provide the same visualisation for a specific secondary structure.
+DrawrnaJS visualises RNA secondary structures in Dot-bracket notation. It is heavily based on [cytoscape.js](https://github.com/cytoscape/cytoscape.js). The algorithm used for layout determination is deterministic and will therefore always provide the same visualisation for a specific secondary structure.
 
 ####  Features
 * Deterministic layout
@@ -17,8 +17,6 @@ DrawrnaJS visualises RNA secondary structures in [Dot-bracket notation](http://u
 * Export structure as PNG
 
 ## Use DrawrnaJS
-
-[Full screen demo](http://workmen.biojs.net/demo/drawrnajs/simple)
 
 Please refer to the examples, which show several possible ways of how you could embed DrawrnaJS into your page.
 
